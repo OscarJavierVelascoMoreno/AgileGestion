@@ -1,4 +1,30 @@
 <html>
+    <?php
+    
+        include('C:/xampp/htdocs/Proyecto/controller/config.php');
+        session_start();
+        
+        if (isset($_POST['edit_user'])) {
+            if (isset($_GET['usr'])){
+                $id = $_GET['usr'];
+                $names = $_POST['names'];
+                $lastnames = $_POST['lastnames'];
+                $email = $_POST['email'];
+                $description = $_POST['description'];
+        
+                $query = $connection->prepare("UPDATE usuario SET names=:names, lastnames=:lastnames, email=:email, description=:description WHERE id=:id");
+                $query->bindParam("id", $id, PDO::PARAM_STR);
+                $query->bindParam("names", $names, PDO::PARAM_STR);
+                $query->bindParam("lastnames", $lastnames, PDO::PARAM_STR);
+                $query->bindParam("email", $email, PDO::PARAM_STR);
+                $query->bindParam("description", $description, PDO::PARAM_STR);
+                $query->execute();
+
+                header("Location: ./users_page.php?usr=$id");
+            }
+        }
+
+    ?>
     <head>
         <title>
             Usuarios
@@ -11,7 +37,7 @@
                 <table style="border-collapse: collapse;">
                     <tr>
                         <td class="td_list" colspan="3">
-                            <a  href="./users_page.html"><img src="../images/casa.svg" width="15%"/></a>
+                            <a  href="./users_page.php"><img src="../images/casa.svg" width="15%"/></a>
                         </td>
                     </tr>
                     <tr>
@@ -22,7 +48,7 @@
                             <a  href="./new_user.php"><img src="../images/agregar-documento.svg" width="15%"/></a>
                         </td>
                     </tr>
-                </table> 
+                </table>
                 <ul>
                     <?php
                         include('C:/xampp/htdocs/Proyecto/controller/conectarse.php');
@@ -71,7 +97,7 @@
                             $usr_id = $_GET['usr'];
                             ?>
                             <div style="width: 10%;">
-                                <a  href="./edit_user.php?usr=<?php echo $usr_id;?>"><img src="../images/edit-free-icon-font.svg" width="15%"/></a>
+                                <a  href="./users_page.html"><img src="../images/edit-free-icon-font.svg" width="15%"/></a>
                             </div>
                             <div style="width: 10%;">
                                 <a  href="./delete_user.php?usr=<?php echo $usr_id;?>"><img src="../images/trash-free-icon-font.svg" width="15%"/></a>
@@ -85,74 +111,66 @@
                         <span style="font-size: xx-large; width: 100%;">Foto</span>
                     </div>
                     <div style="width: 70%; margin: 5%;">
-                        <div style="width: 80%; height: 20%; border: 1px solid black; text-align: center; display: flex; justify-content: center; align-items: center; margin: 5%; background-color: #979EA8;">
-                            <table style="width: 100%; margin: 5%; ">
-                                <tr>
+                        <form method="POST" action="" name="form-login">
+                            <div style="width: 80%; height: 20%; border: 1px solid black; text-align: center; display: flex; justify-content: center; align-items: center; margin: 5%; background-color: #979EA8;">
+                                <table style="width: 100%; margin: 5%; ">
+                                    <tr>
+                                        <?php
+                                            if (isset($_GET['usr'])) {
+                                                $usr_id = $_GET['usr'];
+                                                $sql="SELECT * FROM usuario WHERE id=$usr_id";
+                                                $result=mysqli_query($conection,$sql);
+                                                while($row = $result->fetch_array()){
+                                                    ?>
+                                                    <td>Nombres: <input name="names" value="<?php echo $row['names']; ?>" required pattern="^[A-Za-z ]{1,32}$" type="text" style="border-radius: 5px; text-align: center; width: 80%;" placeholder="Digite sus nombres" title="Solo se permiten letras en el campo de nombres."></td>
+                                                    <td>Apellidos: <input name="lastnames" value="<?php echo $row['lastnames']; ?>" required pattern="^[A-Za-z ]{1,32}$" type="text" style="border-radius: 5px; text-align: center; width: 80%;" placeholder="Digite sus apellidos" title="Solo se permiten letras en el campo de apellidos."></td>
+                                                    <td>Perfil: Desarrollador</td>
+                                                    <td>Activo</td>
+                                                    <?php
+                                                }
+                                            }
+                                        ?>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div style="width: 80%; height: 20%; border: 1px solid black; margin: 5%; background-color: #979EA8;">
+                                <table style="width: 100%; margin: 5%; ">
                                     <?php
                                         if (isset($_GET['usr'])) {
                                             $usr_id = $_GET['usr'];
                                             $sql="SELECT * FROM usuario WHERE id=$usr_id";
                                             $result=mysqli_query($conection,$sql);
                                             while($row = $result->fetch_array()){
-                                            ?>
-                                            <td>Nombres: <?php echo $row['names']; ?></td>
-                                            <td>Apellidos: <?php echo $row['lastnames']; ?></td>
-                                            <td>Perfil: Desarrollador</td>
-                                            <td>Activo</td>
-                                            <?php
+                                                ?>
+                                                <tr>
+                                                    <td>Correo electronico: <input name="email" value="<?php echo $row['email']; ?>" type="text" style="border-radius: 5px; text-align: center; width: 60%;" placeholder="Digite su email" required pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$" title="El correo debe tener la forma xxx@xxx.xxx"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Descripcion: 
+                                                        <textarea name="description" type="text" style="border-radius: 5px; text-align: center; width: 60%;"><?php echo $row['description']; ?></textarea>
+                                                    </td>
+                                                </tr>
+                                                <?php
                                             }
                                         }
-                                        else
-                                        {
-                                            ?>
-                                            <td>Nombres: Usuario</td>
-                                            <td>Apellidos: Usuario</td>
-                                            <td>Perfil: Desarrollador</td>
-                                            <td>Activo</td>
-                                            <?php
-                                        }
                                     ?>
-                                </tr>
-                            </table>
-                        </div>
-                        <div style="width: 80%; height: 20%; border: 1px solid black; margin: 5%; background-color: #979EA8;">
-                            <table style="width: 100%; margin: 5%; ">
+                                </table>
+                            </div>
+
+                            <div style="width: 80%; height: 13%; border: 1px solid black; margin: 5%; background-color: #979EA8;">
                                 <?php
                                     if (isset($_GET['usr'])) {
                                         $usr_id = $_GET['usr'];
-                                        $sql="SELECT * FROM usuario WHERE id=$usr_id";
-                                        $result=mysqli_query($conection,$sql);
-                                        while($row = $result->fetch_array()){
                                         ?>
-                                        <tr>
-                                            <td>Correo electronico: <?php echo $row['email']; ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cambiar contraseña</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Descripcion: <?php echo $row['description']; ?></td>
-                                        </tr>
-                                        <?php
-                                        }
-                                    }
-                                    else
-                                    {
-                                        ?>
-                                        <tr>
-                                            <td>Correo electronico: usuario@correo.com</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cambiar contraseña</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Descripcion:</td>
-                                        </tr>
+                                        <button type="submit" name="edit_user" value="edit_user" style="margin: 5%; border-radius: 5px; background-color: black; color: white; width: 60%">Guardar</button>
+                                        <a href="users_page.php?usr=<?php echo $usr_id;?>" class="button">Cancelar</a>
                                         <?php
                                     }
                                 ?>
-                            </table>
-                        </div>
+                            </div>
+
+                        </form>
                     </div>
                 </div>
             </div>
