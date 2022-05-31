@@ -9,7 +9,7 @@
             $email = $_POST['email'];
             $password = $_POST['password'];
 
-            $query = $connection->prepare("SELECT * FROM usuario WHERE email=:email");
+            $query = $connection->prepare("SELECT * FROM user WHERE email=:email");
             $query->bindParam("email", $email, PDO::PARAM_STR);
             $query->execute();
 
@@ -21,7 +21,7 @@
                 if (password_verify($password, $result['password'])) {
                     $_SESSION['user_id'] = $result['id'];
                     echo '<script>alert("Ha ingresado sin problemas!")</script>';
-                    header('Location: ./new_user.php');
+                    header('Location: ./user_new.php');
                 } else {
                     echo '<script>alert("La combinacion de contraseña y correo es incorrecta!")</script>';
                 }

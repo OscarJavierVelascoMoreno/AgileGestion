@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>
-            Proyectos
+            Tareas
         </title>
         <link rel="stylesheet" href="../style/css/page_style.css">
     </head>
@@ -27,19 +27,28 @@
                     </tr>
                 </table> 
                 <ul>
-                    <li>Proyecto 1</li>
-                    <li>Proyecto 2</li>
-                    <li>Proyecto 3</li>
-                    <li>Proyecto 4</li>
+                    <?php
+                        include('C:/xampp/htdocs/Proyecto/controller/conectarse.php');
+                        Conectarse();
+
+                        $conection = Conectarse();
+                        $sql="SELECT * FROM user_story";
+                        $result=mysqli_query($conection,$sql);
+                        while($row = $result->fetch_array()){
+                            ?>
+                            <li><a href="./us_page?us=<?php echo $row['id']; ?>"><?php echo $row['name']; ?></a></li>
+                            <?php
+                        }
+                    ?>
                 </ul>
             </div>
             <div style="width: 80%; height: 100%;">
                 <div style="width: 100%; height: 5%; border-bottom: 1px solid black; text-align: center; display: flex; justify-content: center; align-items: center;">
-                    <span style="font-size: xx-large; width: 100%;">Proyectos</span>
+                    <span style="font-size: xx-large; width: 100%;">Tareas</span>
                 </div>
                 <div class="main" style="width: 100%; height: 5%; border-bottom: 1px solid black; text-align: center; display: flex; justify-content: center; align-items: center; background-color: #282C33; color: white;">
                     <div style="width: 80%; text-align: center; display: flex; justify-content: center; align-items: center;">
-                        <span style="font-size: xx-large;"></span>Proyecto 1</span>
+                        <span style="font-size: xx-large;"></span>Tareas 1</span>
                     </div>
                     <div style="width: 10%;">
                         <a  href="./users_page.html"><img src="../images/edit-free-icon-font.svg" width="15%"/></a>
@@ -64,38 +73,26 @@
                             </tr>
                         </table> 
                         <ul style="list-style-type: none; background-color: #979EA8;">
-                            <li>Sprint 1</li>
+                            <li>Tarea 1</li>
                             <ul style="list-style-type: none; background-color: #CED4DB;">
-                                <li>Historia de Usuario 1</li>
-                                <li>Historia de Usuario 2</li>
-                                <li>Historia de Usuario 3</li>
                             </ul>
-                            <li>Sprint 2</li>
+                            <li>Tarea 2</li>
                             <ul style="list-style-type: none; background-color: #CED4DB;">
-                                <li>Historia de Usuario 1</li>
-                                <li>Historia de Usuario 2</li>
-                                <li>Historia de Usuario 3</li>
                             </ul>
-                            <li>Sprint 3</li>
+                            <li>Tarea 3</li>
                             <ul style="list-style-type: none; background-color: #CED4DB;">
-                                <li>Historia de Usuario 1</li>
-                                <li>Historia de Usuario 2</li>
-                                <li>Historia de Usuario 3</li>
                             </ul>
-                            <li>Sprint 4</li>
+                            <li>Tarea 4</li>
                             <ul style="list-style-type: none; background-color: #CED4DB;">
-                                <li>Historia de Usuario 1</li>
-                                <li>Historia de Usuario 2</li>
-                                <li>Historia de Usuario 3</li>
                             </ul>
                         </ul>
                     </div>
                     <div style="width: 70%; margin: 5%;">
                         <div style="width: 80%; height: 20%; border: 1px solid black; text-align: center; display: flex; justify-content: center; align-items: center; margin: 5%; background-color: #979EA8;">
-                            <table style="width: 100%; margin: 5%; ">
+                            <table style="width: 50%; margin: 5%; ">
                                 <tr>
-                                    <td>Lider del Proyecto: Lider</td>
-                                    <td>Metodologia de proyecto: Scrum</td>
+                                    <td>HU: Historia de Usuario 1</td>
+                                    <td>Responsable: Desarrollador 1</td>
                                     <td>Abierto</td>
                                 </tr>
                             </table>
@@ -103,8 +100,25 @@
                         <div style="width: 80%; height: 50%; border: 1px solid black; margin: 5%; background-color: #979EA8;">
                             <p style="padding: 5%;">
                                 Descripcion: <br/>
-                                Lorem ipsum dolor sit amet consectetur adipiscing elit, dui gravida dictumst aliquet lacus scelerisque, molestie nam conubia vulputate dapibus sodales. Tristique aliquam fames odio eros montes rhoncus penatibus arcu gravida, nam erat mi iaculis lacus fermentum facilisis nunc, integer proin taciti eu tincidunt varius nisi leo. Litora mollis eu feugiat a taciti enim blandit sollicitudin felis tempor cum magnis, congue massa malesuada hendrerit condimentum senectus ullamcorper ultrices cursus consequat nunc, montes turpis phasellus sem vulputate tristique sapien dignissim conubia urna in.
+                                Hlsjdfhlakjsdbvlasjdfhlkajsdhflkajsdhflkasjdhflaksjdfhlasjsdfsdfsdas
+                                kdfhlaksjdfhlaskdjfhalsdkjfalskdfhlaskfjkahdlfkjashldkfjhasdfsdfasda
+                                slkdjfhlaskjdfhlaskjdfhlaksjdfhalksjdfhalskdfhlaskdhflaksjsdfsdfasda
+                                dfhlaksdjfhlaskjdfhallajdfhlkajsdhflkasjdhfkahsldfkjahsldksdfsdfasda
+                                fjhalskdfhalskdjfhlaskjfhlaksjdfhlkasjdhflkasjdhflkasjfhlksdfsdfasda
+                                dsdlakdjhflkasjdfhlaksjdfhkasfh.
                             </p>
+                        </div>
+                        <!--<div style="width: 50%; margin: 5%;">-->
+                        <div style="width: 80%; height: 20%; border: 1px solid black; text-align: center; display: flex; justify-content: center; align-items: center; margin: 5%; background-color: #979EA8;">
+                            <table style="width: 50%; margin: 5%; ">
+                                <tr>
+                                    <td>Tiempo Estimado: 5 hrs</td><br>
+                                    <td>Tiempo Invertido: 2 hrs</td><br>
+                                    <td>Tiempo Restante: 3 hrs</td><br>
+                                    <td>Calificación</td>
+                                </tr>
+                            </table>
+                        <!--</div>-->
                         </div>
                     </div>
                 </div>

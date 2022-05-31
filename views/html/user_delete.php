@@ -8,7 +8,7 @@
         if (isset($_GET['usr'])){
             $id = $_GET['usr'];
     
-            $query = $connection->prepare("DELETE FROM usuario WHERE id=:id");
+            $query = $connection->prepare("DELETE FROM user WHERE id=:id");
             $query->bindParam("id", $id, PDO::PARAM_STR);
             $query->execute();
 
@@ -37,7 +37,7 @@
                             <a  href="./users_page.php?usr=1"><img src="../images/alinear-justificar.svg" width="15%"/></a>
                         </td>
                         <td class="td_list">
-                            <a  href="./new_user.php"><img src="../images/agregar-documento.svg" width="15%"/></a>
+                            <a  href="./user_new.php"><img src="../images/agregar-documento.svg" width="15%"/></a>
                         </td>
                     </tr>
                 </table> 
@@ -47,7 +47,7 @@
                         Conectarse();
 
                         $conection = Conectarse();
-                        $sql="SELECT * FROM usuario";
+                        $sql="SELECT * FROM user";
                         $result=mysqli_query($conection,$sql);
                         while($row = $result->fetch_array()){
                             ?>
@@ -67,7 +67,7 @@
                     
                         if (isset($_GET['usr'])) {
                             $usr_id = $_GET['usr'];
-                            $sql="SELECT * FROM usuario WHERE id=$usr_id";
+                            $sql="SELECT * FROM user WHERE id=$usr_id";
                             $result=mysqli_query($conection,$sql);
                             while($row = $result->fetch_array()){
                             ?>
@@ -108,7 +108,7 @@
                                     <?php
                                         if (isset($_GET['usr'])) {
                                             $usr_id = $_GET['usr'];
-                                            $sql="SELECT * FROM usuario WHERE id=$usr_id";
+                                            $sql="SELECT * FROM user WHERE id=$usr_id";
                                             $result=mysqli_query($conection,$sql);
                                             while($row = $result->fetch_array()){
                                             ?>
@@ -128,7 +128,7 @@
                                 <?php
                                     if (isset($_GET['usr'])) {
                                         $usr_id = $_GET['usr'];
-                                        $sql="SELECT * FROM usuario WHERE id=$usr_id";
+                                        $sql="SELECT * FROM user WHERE id=$usr_id";
                                         $result=mysqli_query($conection,$sql);
                                         while($row = $result->fetch_array()){
                                         ?>
