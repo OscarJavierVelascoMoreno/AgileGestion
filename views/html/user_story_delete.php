@@ -1,7 +1,7 @@
 <html>
     <?php
         
-        include('C:/xampp/htdocs/Proyecto/controller/config.php');
+        include('C:/xampp/htdocs/AgileGestion/controller/config.php');
         session_start();
         
         if (isset($_POST['delete_user_story'])) {
@@ -29,7 +29,7 @@
                 <table style="border-collapse: collapse;">
                     <tr>
                         <td class="td_list" colspan="3">
-                            <a  href="./users_page.html"><img src="../images/casa.svg" width="15%"/></a>
+                            <a  href="./main_menu.php"><img src="../images/casa.svg" width="15%"/></a>
                         </td>
                     </tr>
                     <tr>
@@ -43,7 +43,7 @@
                 </table> 
                 <ul style="background-color: #979EA8;">
                     <?php
-                        include('C:/xampp/htdocs/Proyecto/controller/conectarse.php');
+                        include('C:/xampp/htdocs/AgileGestion/controller/conectarse.php');
                         Conectarse();
 
                         $conection = Conectarse();
@@ -149,7 +149,7 @@
                                             $result=mysqli_query($conection,$sql);
                                             while($row = $result->fetch_array()){
                                             ?>
-                                                <td>Responsable: <a href="users_page.php?usr=<?php echo $row['id']; ?>"><?php echo $row['names']; ?> <?php echo $row['lastnames']; ?></a></td>
+                                                <td>Responsable: <a href="user_page.php?usr=<?php echo $row['id']; ?>"><?php echo $row['names']; ?> <?php echo $row['lastnames']; ?></a></td>
                                             <?php
                                             }
                                         }
@@ -205,7 +205,7 @@
                                         $usy_id = $_GET['usy'];
                                         ?>
                                         <button type="submit" name="delete_user_story" value="delete_user_story" style="margin: 5%; border-radius: 5px; background-color: black; color: white; width: 60%">Eliminar</button>
-                                        <a href="users_page.php?usy=<?php echo $usy_id;?>" class="button">Cancelar</a>
+                                        <a href="user_story_page.php?usy=<?php echo $usy_id;?>" class="button">Cancelar</a>
                                         <?php
                                     }
                                 ?>

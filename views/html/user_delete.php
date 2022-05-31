@@ -1,7 +1,7 @@
 <html>
     <?php
     
-    include('C:/xampp/htdocs/Proyecto/controller/config.php');
+    include('C:/xampp/htdocs/AgileGestion/controller/config.php');
     session_start();
     
     if (isset($_POST['delete_user'])) {
@@ -12,7 +12,7 @@
             $query->bindParam("id", $id, PDO::PARAM_STR);
             $query->execute();
 
-            header('Location: ./users_page.php?usr=1');
+            header('Location: ./user_page.php?usr=1');
         }
     }
 
@@ -29,12 +29,12 @@
                 <table style="border-collapse: collapse;">
                     <tr>
                         <td class="td_list" colspan="3">
-                            <a  href="./users_page.html"><img src="../images/casa.svg" width="15%"/></a>
+                            <a  href="./main_menu.php"><img src="../images/casa.svg" width="15%"/></a>
                         </td>
                     </tr>
                     <tr>
                         <td class="td_list">
-                            <a  href="./users_page.php?usr=1"><img src="../images/alinear-justificar.svg" width="15%"/></a>
+                            <a  href="./user_page.php?usr=1"><img src="../images/alinear-justificar.svg" width="15%"/></a>
                         </td>
                         <td class="td_list">
                             <a  href="./user_new.php"><img src="../images/agregar-documento.svg" width="15%"/></a>
@@ -43,7 +43,7 @@
                 </table> 
                 <ul>
                     <?php
-                        include('C:/xampp/htdocs/Proyecto/controller/conectarse.php');
+                        include('C:/xampp/htdocs/AgileGestion/controller/conectarse.php');
                         Conectarse();
 
                         $conection = Conectarse();
@@ -88,10 +88,10 @@
                         if (isset($_GET['usr'])) {
                             ?>
                             <div style="width: 10%;">
-                                <a  href="./users_page.html"><img src="../images/edit-free-icon-font.svg" width="15%"/></a>
+                                <a  href="./user_page.php"><img src="../images/edit-free-icon-font.svg" width="15%"/></a>
                             </div>
                             <div style="width: 10%;">
-                                <a  href="./users_page.html"><img src="../images/trash-free-icon-font.svg" width="15%"/></a>
+                                <a  href="./user_page.php"><img src="../images/trash-free-icon-font.svg" width="15%"/></a>
                             </div>
                             <?php
                         }
@@ -155,7 +155,7 @@
                                         $usr_id = $_GET['usr'];
                                         ?>
                                         <button type="submit" name="delete_user" value="delete_user" style="margin: 5%; border-radius: 5px; background-color: black; color: white; width: 60%">Eliminar</button>
-                                        <a href="users_page.php?usr=<?php echo $usr_id;?>" class="button">Cancelar</a>
+                                        <a href="user_page.php?usr=<?php echo $usr_id;?>" class="button">Cancelar</a>
                                         <?php
                                     }
                                 ?>

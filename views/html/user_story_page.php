@@ -11,7 +11,7 @@
                 <table style="border-collapse: collapse;">
                     <tr>
                         <td class="td_list" colspan="3">
-                            <a  href="./users_page.html"><img src="../images/casa.svg" width="15%"/></a>
+                            <a  href="./main_menu.php"><img src="../images/casa.svg" width="15%"/></a>
                         </td>
                     </tr>
                     <tr>
@@ -25,7 +25,7 @@
                 </table> 
                 <ul style="background-color: #979EA8;">
                     <?php
-                        include('C:/xampp/htdocs/Proyecto/controller/conectarse.php');
+                        include('C:/xampp/htdocs/AgileGestion/controller/conectarse.php');
                         Conectarse();
 
                         $conection = Conectarse();
@@ -131,7 +131,7 @@
                                             $result=mysqli_query($conection,$sql);
                                             while($row = $result->fetch_array()){
                                             ?>
-                                                <td>Responsable: <a href="users_page.php?usr=<?php echo $row['id']; ?>"><?php echo $row['names']; ?> <?php echo $row['lastnames']; ?></a></td>
+                                                <td>Responsable: <a href="user_page.php?usr=<?php echo $row['id']; ?>"><?php echo $row['names']; ?> <?php echo $row['lastnames']; ?></a></td>
                                             <?php
                                             }
                                         }
@@ -168,12 +168,7 @@
                                     ?>
                                     <p style="padding: 5%;">
                                         Descripcion: <br/>
-                                        Hlsjdfhlakjsdbvlasjdfhlkajsdhflkajsdhflkasjdhflaksjdfhlasj
-                                        kdfhlaksjdfhlaskdjfhalsdkjfalskdfhlaskfjkahdlfkjashldkfjha
-                                        slkdjfhlaskjdfhlaskjdfhlaksjdfhalksjdfhalskdfhlaskdhflaksj
-                                        dfhlaksdjfhlaskjdfhallajdfhlkajsdhflkasjdhfkahsldfkjahsldk
-                                        fjhalskdfhalskdjfhlaskjfhlaksjdfhlkasjdhflkasjdhflkasjfhlk
-                                        dsdlakdjhflkasjdfhlaksjdfhkasfh.
+                                        Lorem ipsum dolor sit amet consectetur adipiscing elit, dui gravida dictumst aliquet lacus scelerisque, molestie nam conubia vulputate dapibus sodales. Tristique aliquam fames odio eros montes rhoncus penatibus arcu gravida, nam erat mi iaculis lacus fermentum facilisis nunc, integer proin taciti eu tincidunt varius nisi leo. Litora mollis eu feugiat a taciti enim blandit sollicitudin felis tempor cum magnis, congue massa malesuada hendrerit condimentum senectus ullamcorper ultrices cursus consequat nunc, montes turpis phasellus sem vulputate tristique sapien dignissim conubia urna in.
                                     </p>
                                     <?php
                                 }

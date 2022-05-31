@@ -1,7 +1,7 @@
 <html>
     <?php
         
-        include('C:/xampp/htdocs/Proyecto/controller/config.php');
+        include('C:/xampp/htdocs/AgileGestion/controller/config.php');
         session_start();
         
         if (isset($_POST['edit_user_story'])) {
@@ -14,7 +14,7 @@
                 $description = $_POST['description'];
 
                 if(!$user_id){
-                    echo '<script>alert("Debe seleccionar un lider valido!")</script>';
+                    echo '<script>alert("Debe seleccionar un responsable valido!")</script>';
                 }
                 if(!$project_id){
                     echo '<script>alert("Debe seleccionar un proyecto valido!")</script>';
@@ -23,7 +23,8 @@
                     echo '<script>alert("Debe ingresar una descripcion del proyecto!")</script>';
                 }
 
-                $query = $connection->prepare("SELECT * FROM user_story WHERE name=:name and project_id=:project_id");
+                $query = $connection->prepare("SELECT * FROM user_story WHERE name=:name and project_id=:project_id AND NOT id=:id");
+                $query->bindParam("id", $id, PDO::PARAM_STR);
                 $query->bindParam("name", $name, PDO::PARAM_STR);
                 $query->bindParam("project_id", $project_id, PDO::PARAM_STR);
                 $query->execute();
@@ -43,7 +44,7 @@
             
                     if ($result) {
                         echo '<script>alert("Registro exitoso!")</script>';
-                        header('Location: ./user_story_page.php');
+                        header("Location: ./user_story_page.php?usy=$id");
                     } else {
                         echo '<script>alert("Algo salio mal!")</script>';
                     }
@@ -65,7 +66,7 @@
                 <table style="border-collapse: collapse;">
                     <tr>
                         <td class="td_list" colspan="3">
-                            <a  href="./users_page.html"><img src="../images/casa.svg" width="15%"/></a>
+                            <a  href="./main_menu.php"><img src="../images/casa.svg" width="15%"/></a>
                         </td>
                     </tr>
                     <tr>
@@ -79,7 +80,7 @@
                 </table> 
                 <ul style="background-color: #979EA8;">
                     <?php
-                        include('C:/xampp/htdocs/Proyecto/controller/conectarse.php');
+                        include('C:/xampp/htdocs/AgileGestion/controller/conectarse.php');
                         Conectarse();
 
                         $conection = Conectarse();
@@ -240,7 +241,7 @@
                                                 $conection = Conectarse();
 
                                                 $id = $_GET['usy'];
-                                                $sql="SELECT * FROM project WHERE id=$id";
+                                                $sql="SELECT * FROM user_story WHERE id=$id";
                                                 $result=mysqli_query($conection,$sql);
                                                 while($row = $result->fetch_array()){
                                                     ?>

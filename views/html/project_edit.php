@@ -1,7 +1,7 @@
 <html>
     <?php
     
-        include('C:/xampp/htdocs/Proyecto/controller/config.php');
+        include('C:/xampp/htdocs/AgileGestion/controller/config.php');
         session_start();
         
         if (isset($_POST['edit_project'])) {
@@ -54,7 +54,7 @@
                 <table style="border-collapse: collapse;">
                     <tr>
                         <td class="td_list" colspan="3">
-                            <a  href="./users_page.php"><img src="../images/casa.svg" width="15%"/></a>
+                            <a  href="./main_menu.php"><img src="../images/casa.svg" width="15%"/></a>
                         </td>
                     </tr>
                     <tr>
@@ -68,7 +68,7 @@
                 </table> 
                 <ul>
                     <?php
-                        include('C:/xampp/htdocs/Proyecto/controller/conectarse.php');
+                        include('C:/xampp/htdocs/AgileGestion/controller/conectarse.php');
                         Conectarse();
 
                         $conection = Conectarse();

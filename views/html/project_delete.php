@@ -1,7 +1,7 @@
 <html>
     <?php
         
-        include('C:/xampp/htdocs/Proyecto/controller/config.php');
+        include('C:/xampp/htdocs/AgileGestion/controller/config.php');
         session_start();
         
         if (isset($_POST['delete_project'])) {
@@ -29,7 +29,7 @@
                 <table style="border-collapse: collapse;">
                     <tr>
                         <td class="td_list" colspan="3">
-                            <a  href="./users_page.php"><img src="../images/casa.svg" width="15%"/></a>
+                            <a  href="./main_menu.php"><img src="../images/casa.svg" width="15%"/></a>
                         </td>
                     </tr>
                     <tr>
@@ -43,7 +43,7 @@
                 </table> 
                 <ul>
                     <?php
-                        include('C:/xampp/htdocs/Proyecto/controller/conectarse.php');
+                        include('C:/xampp/htdocs/AgileGestion/controller/conectarse.php');
                         Conectarse();
 
                         $conection = Conectarse();
@@ -129,7 +129,7 @@
                                             $result=mysqli_query($conection,$sql);
                                             while($row = $result->fetch_array()){
                                             ?>
-                                                <td>Lider del Proyecto: <a href="users_page.php?usr=<?php echo $row['id']; ?>"><?php echo $row['names']; ?> <?php echo $row['lastnames']; ?></a></td>
+                                                <td>Lider del Proyecto: <a href="user_page.php?usr=<?php echo $row['id']; ?>"><?php echo $row['names']; ?> <?php echo $row['lastnames']; ?></a></td>
                                             <?php
                                             }
                                         }
@@ -179,7 +179,7 @@
                                         $prj_id = $_GET['prj'];
                                         ?>
                                         <button type="submit" name="delete_project" value="delete_project" style="margin: 5%; border-radius: 5px; background-color: black; color: white; width: 60%">Eliminar</button>
-                                        <a href="users_page.php?prj=<?php echo $prj_id;?>" class="button">Cancelar</a>
+                                        <a href="project_page.php?prj=<?php echo $prj_id;?>" class="button">Cancelar</a>
                                         <?php
                                     }
                                 ?>

@@ -1,7 +1,7 @@
 <html>
     <?php
     
-    include('C:/xampp/htdocs/Proyecto/controller/config.php');
+    include('C:/xampp/htdocs/AgileGestion/controller/config.php');
     session_start();
     
     if (isset($_POST['new_user'])) {
@@ -32,7 +32,7 @@
     
             if ($result) {
                 echo '<script>alert("Registro exitoso!")</script>';
-                header('Location: ./users_page.php');
+                header('Location: ./user_page.php');
             } else {
                 echo '<script>alert("Algo salio mal!")</script>';
             }
@@ -52,19 +52,19 @@
                 <table style="border-collapse: collapse;">
                     <tr>
                         <td class="td_list" colspan="3">
-                            <a  href="./users_page.html"><img src="../images/casa.svg" width="15%"/></a>
+                            <a  href="./main_menu.php"><img src="../images/casa.svg" width="15%"/></a>
                         </td>
                     </tr>
                     <tr>
                         <td class="td_list">
-                            <a  href="./users_page.php?usr=1"><img src="../images/alinear-justificar.svg" width="15%"/></a>
+                            <a  href="./user_page.php?usr=1"><img src="../images/alinear-justificar.svg" width="15%"/></a>
                         </td>
                     </tr>
                 </table> 
                 <ul>
                     <?php
 
-                        include('C:/xampp/htdocs/Proyecto/controller/conectarse.php');
+                        include('C:/xampp/htdocs/AgileGestion/controller/conectarse.php');
                         Conectarse();
                         
                         $conection = Conectarse();
@@ -72,7 +72,7 @@
                         $result=mysqli_query($conection,$sql);
                         while($row = $result->fetch_array()){
                             ?>
-                            <li><a href="users_page.php?usr=<?php echo $row['id']; ?>"><?php echo $row['names']; ?> <?php echo $row['lastnames']; ?></a></li>
+                            <li><a href="user_page.php?usr=<?php echo $row['id']; ?>"><?php echo $row['names']; ?> <?php echo $row['lastnames']; ?></a></li>
                             <?php
                         }
                         ?>
@@ -120,7 +120,7 @@
 
                             <button type="submit" name="new_user" value="new_user" style="margin: 5%; border-radius: 5px; background-color: black; color: white; width: 60%">Guardar</button>
                             <button type="reset" name="reset" value="reset" style="margin: 5%; border-radius: 5px; background-color: black; color: white; width: 60%">Limpiar</button>
-                            <a href="users_page.php?usr=1" class="button">Cancelar</a>
+                            <a href="user_page.php?usr=1" class="button">Cancelar</a>
                         </div>
                     </form>
                 </div>

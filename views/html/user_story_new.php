@@ -1,7 +1,7 @@
 <html>
     <?php
         
-        include('C:/xampp/htdocs/Proyecto/controller/config.php');
+        include('C:/xampp/htdocs/AgileGestion/controller/config.php');
         session_start();
         
         if (isset($_POST['new_user_story'])) {
@@ -12,7 +12,7 @@
             $description = $_POST['description'];
 
             if(!$user_id){
-                echo '<script>alert("Debe seleccionar un lider valido!")</script>';
+                echo '<script>alert("Debe seleccionar un responsable valido!")</script>';
             }
             if(!$project_id){
                 echo '<script>alert("Debe seleccionar un proyecto valido!")</script>';
@@ -21,10 +21,9 @@
                 echo '<script>alert("Debe ingresar una descripcion de la Historia de Usuario !")</script>';
             }
         
-            $query_validation = $connection->prepare("SELECT * FROM user_story WHERE name=:name and project_id=:project_id AND NOT id=:id");
+            $query_validation = $connection->prepare("SELECT * FROM user_story WHERE name=:name and project_id=:project_id");
             $query_validation->bindParam("name", $name, PDO::PARAM_STR);
             $query_validation->bindParam("project_id", $project_id, PDO::PARAM_STR);
-            $query_validation->bindParam("id", $id, PDO::PARAM_STR);
             $query_validation->execute();
         
             if ($query_validation->rowCount() > 0) {
@@ -61,7 +60,7 @@
                 <table style="border-collapse: collapse;">
                     <tr>
                         <td class="td_list" colspan="3">
-                            <a  href="./users_page.html"><img src="../images/casa.svg" width="15%"/></a>
+                            <a  href="./main_menu.php"><img src="../images/casa.svg" width="15%"/></a>
                         </td>
                     </tr>
                     <tr>
@@ -75,7 +74,7 @@
                 </table> 
                 <ul style="background-color: #979EA8;">
                     <?php
-                        include('C:/xampp/htdocs/Proyecto/controller/conectarse.php');
+                        include('C:/xampp/htdocs/AgileGestion/controller/conectarse.php');
                         Conectarse();
 
                         $conection = Conectarse();

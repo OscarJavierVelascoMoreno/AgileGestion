@@ -1,7 +1,7 @@
 <html>
     <?php
         
-        include('C:/xampp/htdocs/Proyecto/controller/config.php');
+        include('C:/xampp/htdocs/AgileGestion/controller/config.php');
         session_start();
     
         if (isset($_POST['login'])) {
@@ -21,7 +21,7 @@
                 if (password_verify($password, $result['password'])) {
                     $_SESSION['user_id'] = $result['id'];
                     echo '<script>alert("Ha ingresado sin problemas!")</script>';
-                    header('Location: ./user_new.php');
+                    header('Location: ./main_menu.php');
                 } else {
                     echo '<script>alert("La combinacion de contraseña y correo es incorrecta!")</script>';
                 }

@@ -11,12 +11,12 @@
                 <table style="border-collapse: collapse;">
                     <tr>
                         <td class="td_list" colspan="3">
-                            <a  href="./users_page.html"><img src="../images/casa.svg" width="15%"/></a>
+                            <a  href="./main_menu.php"><img src="../images/casa.svg" width="15%"/></a>
                         </td>
                     </tr>
                     <tr>
                         <td class="td_list">
-                            <a  href="./users_page.php?usr=1"><img src="../images/alinear-justificar.svg" width="15%"/></a>
+                            <a  href="./user_page.php?usr=1"><img src="../images/alinear-justificar.svg" width="15%"/></a>
                         </td>
                         <td class="td_list">
                             <a  href="./user_new.php"><img src="../images/agregar-documento.svg" width="15%"/></a>
@@ -25,7 +25,7 @@
                 </table> 
                 <ul>
                     <?php
-                        include('C:/xampp/htdocs/Proyecto/controller/conectarse.php');
+                        include('C:/xampp/htdocs/AgileGestion/controller/conectarse.php');
                         Conectarse();
 
                         $conection = Conectarse();
