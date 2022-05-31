@@ -13,7 +13,7 @@
         $password_hash = password_hash($password, PASSWORD_BCRYPT);
         $description = $_POST['description'];
     
-        $query = $connection->prepare("SELECT * FROM usuario WHERE EMAIL=:email");
+        $query = $connection->prepare("SELECT * FROM user WHERE EMAIL=:email");
         $query->bindParam("email", $email, PDO::PARAM_STR);
         $query->execute();
     
@@ -22,7 +22,7 @@
         }
     
         if ($query->rowCount() == 0) {
-            $query = $connection->prepare("INSERT INTO usuario(names,lastnames,email,password,description) VALUES (:names,:lastnames,:email,:password_hash,:description)");
+            $query = $connection->prepare("INSERT INTO user(names,lastnames,email,password,description) VALUES (:names,:lastnames,:email,:password_hash,:description)");
             $query->bindParam("names", $names, PDO::PARAM_STR);
             $query->bindParam("lastnames", $lastnames, PDO::PARAM_STR);
             $query->bindParam("email", $email, PDO::PARAM_STR);
@@ -68,7 +68,7 @@
                         Conectarse();
                         
                         $conection = Conectarse();
-                        $sql="SELECT * FROM usuario";
+                        $sql="SELECT * FROM user";
                         $result=mysqli_query($conection,$sql);
                         while($row = $result->fetch_array()){
                             ?>
@@ -88,7 +88,7 @@
                     </div>
                 </div>
                 <div style="width: 100%; height: 90%; display: flex; flex-direction: row;">
-                    <form method="POST" action="" name="form-login">
+                    <form method="POST" action="" name="form-new-user">
 
                         <div style="width: 100%; margin: 5%;">
                             <div style="width: 100%; height: 20%; border: 1px solid black; text-align: center; display: flex; justify-content: center; align-items: center; margin: 5%; background-color: #979EA8;">

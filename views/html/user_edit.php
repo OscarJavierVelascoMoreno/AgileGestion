@@ -11,16 +11,28 @@
                 $lastnames = $_POST['lastnames'];
                 $email = $_POST['email'];
                 $description = $_POST['description'];
+
+                $query_validation = $connection->prepare("SELECT * FROM user WHERE EMAIL=:email AND NOT id=:id");
+                $query_validation->bindParam("email", $email, PDO::PARAM_STR);
+                $query_validation->bindParam("id", $id, PDO::PARAM_STR);
+                $query_validation->execute();
+            
+                if ($query_validation->rowCount() > 0) {
+                    echo '<script>alert("Este correo electronico ya se encuentra registrado!")</script>';
+                }
         
-                $query = $connection->prepare("UPDATE usuario SET names=:names, lastnames=:lastnames, email=:email, description=:description WHERE id=:id");
+                $query = $connection->prepare("UPDATE user SET names=:names, lastnames=:lastnames, email=:email, description=:description WHERE id=:id");
                 $query->bindParam("id", $id, PDO::PARAM_STR);
                 $query->bindParam("names", $names, PDO::PARAM_STR);
                 $query->bindParam("lastnames", $lastnames, PDO::PARAM_STR);
                 $query->bindParam("email", $email, PDO::PARAM_STR);
                 $query->bindParam("description", $description, PDO::PARAM_STR);
                 $query->execute();
+                
+                if ($query_validation->rowCount() <= 0) {
+                    header("Location: ./users_page.php?usr=$id");
+                }
 
-                header("Location: ./users_page.php?usr=$id");
             }
         }
 
@@ -45,7 +57,7 @@
                             <a  href="./users_page.php?usr=1"><img src="../images/alinear-justificar.svg" width="15%"/></a>
                         </td>
                         <td class="td_list">
-                            <a  href="./new_user.php"><img src="../images/agregar-documento.svg" width="15%"/></a>
+                            <a  href="./user_new.php"><img src="../images/agregar-documento.svg" width="15%"/></a>
                         </td>
                     </tr>
                 </table>
@@ -55,7 +67,7 @@
                         Conectarse();
 
                         $conection = Conectarse();
-                        $sql="SELECT * FROM usuario";
+                        $sql="SELECT * FROM user";
                         $result=mysqli_query($conection,$sql);
                         while($row = $result->fetch_array()){
                             ?>
@@ -75,7 +87,7 @@
                     
                         if (isset($_GET['usr'])) {
                             $usr_id = $_GET['usr'];
-                            $sql="SELECT * FROM usuario WHERE id=$usr_id";
+                            $sql="SELECT * FROM user WHERE id=$usr_id";
                             $result=mysqli_query($conection,$sql);
                             while($row = $result->fetch_array()){
                             ?>
@@ -91,20 +103,6 @@
                         }
                     ?>
                     </div>
-                    <?php
-                    
-                        if (isset($_GET['usr'])) {
-                            $usr_id = $_GET['usr'];
-                            ?>
-                            <div style="width: 10%;">
-                                <a  href="./users_page.html"><img src="../images/edit-free-icon-font.svg" width="15%"/></a>
-                            </div>
-                            <div style="width: 10%;">
-                                <a  href="./delete_user.php?usr=<?php echo $usr_id;?>"><img src="../images/trash-free-icon-font.svg" width="15%"/></a>
-                            </div>
-                            <?php
-                        }
-                    ?>
                 </div>
                 <div style="width: 100%; height: 90%; display: flex; flex-direction: row;">
                     <div style="width: 30%; height: 20%; border: 1px solid black; text-align: center; display: flex; justify-content: center; align-items: center; margin: 5%; margin-top: 10%;">
@@ -118,7 +116,7 @@
                                         <?php
                                             if (isset($_GET['usr'])) {
                                                 $usr_id = $_GET['usr'];
-                                                $sql="SELECT * FROM usuario WHERE id=$usr_id";
+                                                $sql="SELECT * FROM user WHERE id=$usr_id";
                                                 $result=mysqli_query($conection,$sql);
                                                 while($row = $result->fetch_array()){
                                                     ?>
@@ -138,7 +136,7 @@
                                     <?php
                                         if (isset($_GET['usr'])) {
                                             $usr_id = $_GET['usr'];
-                                            $sql="SELECT * FROM usuario WHERE id=$usr_id";
+                                            $sql="SELECT * FROM user WHERE id=$usr_id";
                                             $result=mysqli_query($conection,$sql);
                                             while($row = $result->fetch_array()){
                                                 ?>
