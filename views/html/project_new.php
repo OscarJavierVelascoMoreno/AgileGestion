@@ -4,11 +4,17 @@
         include('C:/xampp/htdocs/AgileGestion/controller/config.php');
         session_start();
         
+        include('C:/xampp/htdocs/AgileGestion/controller/conectarse.php');
+        Conectarse();
+
+        $conection = Conectarse();
+
         if (isset($_POST['new_project'])) {
         
             $name = $_POST['name'];
             $user_id = $_POST['user_selection'];
             $description = $_POST['description'];
+            $end_type = $_POST['end_selection'];
 
             if(!$user_id){
                 echo '<script>alert("Debe seleccionar un lider valido!")</script>';
@@ -21,15 +27,61 @@
             $query->bindParam("name", $name, PDO::PARAM_STR);
             $query->execute();
         
+            // Algoritmo para determinar si sera entregado a tiempo
+            
+            // Cada uno de los tipos de fin proyecto se tomara como caso de exito
+            // Probabilidad de exito para cada uno de los casos
+            $prj_ontime = 0;
+            $prj_aftertime = 0;
+            $prj_beforetime = 0;
+            $tot_prob_proj = 0; //n - Numero de ensayos y experimentos
+
+            $get_prj_sql = "SELECT * FROM project WHERE NOT end_type=''";
+            $get_prj_query = mysqli_query($conection, $get_prj_sql);
+            while($prj_prob_row = $get_prj_query->fetch_array()){
+                if ($prj_prob_row['end_type'] == "ontime") {
+                    $prj_ontime += 1;
+                }
+                elseif ($prj_prob_row['end_type'] == "afterdue") {
+                    $prj_aftertime += 1;
+                }
+                elseif ($prj_prob_row['end_type'] == "beforedue") {
+                    $prj_beforetime += 1;
+                }
+                $tot_prob_proj += 1;
+            }
+
+            $prj_ontime = $prj_ontime/$tot_prob_proj;
+            $prj_aftertime = $prj_aftertime/$tot_prob_proj;
+            $prj_beforetime = $prj_beforetime/$tot_prob_proj;
+
+            $msg_extra_bf = "<br/>La probabilidad de que el proyecto termine antes de tiempo es: $prj_beforetime";
+            $msg_extra_on = "<br/>La probabilidad de que el proyecto termine justo a tiempo es: $prj_ontime";
+            $msg_extra_af = "<br/>La probabilidad de que el proyecto termine despues de tiempo es: $prj_aftertime";
+
+            if (!$end_type){
+                if ($prj_ontime > $prj_aftertime and $prj_ontime > $prj_beforetime)
+                    $end_type = "ontime";
+                elseif ($prj_aftertime > $prj_ontime and $prj_aftertime > $prj_beforetime)
+                    $end_type = "afterdue";
+                elseif ($prj_beforetime > $prj_aftertime and $prj_beforetime > $prj_ontime)
+                    $end_type = "beforedue";
+            }
+
+            $description = $description . $msg_extra_bf . $msg_extra_on . $msg_extra_af;
+
+            // Algoritmo para determinar si sera entregado a tiempo
+
             if ($query->rowCount() > 0) {
                 echo '<script>alert("Ya existe un proyecto con este nombre!")</script>';
             }
         
             if ($query->rowCount() == 0 AND $user_id AND $description) {
-                $query = $connection->prepare("INSERT INTO project(name,user_id,description) VALUES (:name,:user_id,:description)");
+                $query = $connection->prepare("INSERT INTO project(name,user_id,description,end_type) VALUES (:name,:user_id,:description,:end_type)");
                 $query->bindParam("name", $name, PDO::PARAM_STR);
                 $query->bindParam("user_id", $user_id, PDO::PARAM_STR);
                 $query->bindParam("description", $description, PDO::PARAM_STR);
+                $query->bindParam("end_type", $end_type, PDO::PARAM_STR);
                 $result = $query->execute();
         
                 if ($result) {
@@ -65,8 +117,6 @@
                 </table> 
                 <ul>
                     <?php
-                        include('C:/xampp/htdocs/AgileGestion/controller/conectarse.php');
-                        Conectarse();
 
                         $conection = Conectarse();
                         $sql="SELECT * FROM project";
@@ -124,6 +174,15 @@
                                         <td>
                                             Descripcion: <br/>
                                             <textarea name="description" type="text" style="border-radius: 5px; text-align: center; width: 60%;"></textarea>
+                                        </td>
+                                        <td>
+                                            Tipo de finalización: <br/>
+                                            <select id="end_selection" name="end_selection">
+                                                <option value = ""></option>
+                                                <option value = "ontime">Terminado a Tiempo</option>
+                                                <option value = "afterdue">Terminado despues del tiempo</option>
+                                                <option value = "beforedue">Terminado antes de tiempo</option>
+                                            </select>
                                         </td>
                                     </tr>
                                 </table>

@@ -10,6 +10,7 @@
                 $name = $_POST['name'];
                 $user_id = $_POST['user_selection'];
                 $description = $_POST['description'];
+                $end_type = $_POST['end_selection'];
 
                 if(!$user_id){
                     echo '<script>alert("Debe seleccionar un lider valido!")</script>';
@@ -27,11 +28,12 @@
                     echo '<script>alert("Ya existe un proyecto con este nombre!")</script>';
                 }
         
-                $query = $connection->prepare("UPDATE project SET name=:name, user_id=:user_id, description=:description WHERE id=:id");
+                $query = $connection->prepare("UPDATE project SET name=:name, user_id=:user_id, description=:description, end_type=:end_type WHERE id=:id");
                 $query->bindParam("id", $id, PDO::PARAM_STR);
                 $query->bindParam("name", $name, PDO::PARAM_STR);
                 $query->bindParam("user_id", $user_id, PDO::PARAM_STR);
                 $query->bindParam("description", $description, PDO::PARAM_STR);
+                $query->bindParam("end_type", $end_type, PDO::PARAM_STR);
                 $query->execute();
                 
                 if ($query_validation->rowCount() <= 0) {
@@ -203,6 +205,15 @@
                                                     <?php
                                                 }
                                             ?>
+                                        </td>
+                                        <td>
+                                            Tipo de finalización:<br/>
+                                            <select id="end_selection" name="end_selection">
+                                                <option value = ""></option>
+                                                <option value = "ontime">Terminado a Tiempo</option>
+                                                <option value = "afterdue">Terminado despues del tiempo</option>
+                                                <option value = "beforedue">Terminado antes de tiempo</option>
+                                            </select>
                                         </td>
                                     </tr>
                                 </table>
