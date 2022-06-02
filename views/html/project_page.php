@@ -128,30 +128,49 @@
                             </table>
                         </div>
                         <div style="width: 80%; height: 50%; border: 1px solid black; margin: 5%; background-color: #979EA8;">
-                            <?php
-                                if (isset($_GET['prj'])) {
-                                    $prj_id = $_GET['prj'];
-                                    $sql="SELECT * FROM project WHERE id=$prj_id";
-                                    $result=mysqli_query($conection,$sql);
-                                    while($row = $result->fetch_array()){
-                                        ?>
-                                        <p style="padding: 5%;">
-                                            Descripcion: <br/>
-                                            <?php echo $row['description']; ?>
-                                        </p>
+                            <table style="width: 100%; margin: 5%; ">
+                                <tr>
+                                    <td style="width: 50%;">
                                         <?php
-                                    }
-                                }
-                                else
-                                {
-                                    ?>
-                                    <p style="padding: 5%;">
-                                        Descripcion: <br/>
-                                        Lorem ipsum dolor sit amet consectetur adipiscing elit, dui gravida dictumst aliquet lacus scelerisque, molestie nam conubia vulputate dapibus sodales. Tristique aliquam fames odio eros montes rhoncus penatibus arcu gravida, nam erat mi iaculis lacus fermentum facilisis nunc, integer proin taciti eu tincidunt varius nisi leo. Litora mollis eu feugiat a taciti enim blandit sollicitudin felis tempor cum magnis, congue massa malesuada hendrerit condimentum senectus ullamcorper ultrices cursus consequat nunc, montes turpis phasellus sem vulputate tristique sapien dignissim conubia urna in.
-                                    </p>
-                                    <?php
-                                }
-                            ?>
+                                            if (isset($_GET['prj'])) {
+                                                $prj_id = $_GET['prj'];
+                                                $sql="SELECT * FROM project WHERE id=$prj_id";
+                                                $result=mysqli_query($conection,$sql);
+                                                while($row = $result->fetch_array()){
+                                                    ?>
+                                                    <p style="padding: 5%;">
+                                                        Descripcion: <br/>
+                                                        <?php echo $row['description']; ?>
+                                                    </p>
+                                                    </td> 
+                                                    <td>
+                                                    Tipo de finalización: <br/>
+                                                    <?php 
+                                                    if ($row['end_type'] == "ontime") {
+                                                        echo("Terminado a Tiempo");
+                                                    }
+                                                    elseif ($row['end_type'] == "afterdue") {
+                                                        echo("Terminado despues del tiempo");
+                                                    }
+                                                    elseif ($row['end_type'] == "beforedue") {
+                                                        echo("Terminado antes de tiempo");
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                ?>
+                                                    Descripcion: <br/>
+                                                    Lorem ipsum dolor sit amet consectetur adipiscing elit, dui gravida dictumst aliquet lacus scelerisque, molestie nam conubia vulputate dapibus sodales. Tristique aliquam fames odio eros montes rhoncus penatibus arcu gravida, nam erat mi iaculis lacus fermentum facilisis nunc, integer proin taciti eu tincidunt varius nisi leo. Litora mollis eu feugiat a taciti enim blandit sollicitudin felis tempor cum magnis, congue massa malesuada hendrerit condimentum senectus ullamcorper ultrices cursus consequat nunc, montes turpis phasellus sem vulputate tristique sapien dignissim conubia urna in.
+                                                </td> 
+                                                <td>
+                                                    Tipo de finalización: 
+                                                <?php                                                
+                                            }
+                                        ?>
+                                    </td>
+                                </tr>
+                            </table>    
                         </div>
                     </div>
                 </div>
